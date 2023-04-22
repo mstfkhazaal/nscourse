@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('duration')->nullable();
             $table->foreignId('section_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

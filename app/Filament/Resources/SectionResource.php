@@ -13,8 +13,10 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use SevendaysDigital\FilamentNestedResources\Columns\ChildResourceLink;
+use SevendaysDigital\FilamentNestedResources\NestedResource;
 
-class SectionResource extends Resource
+class SectionResource extends NestedResource
 {
     use Translatable;
 
@@ -28,18 +30,19 @@ class SectionResource extends Resource
 
     protected static bool $shouldRegisterNavigation = false;
 
+    public static function getParent(): string
+    {
+        return CourseResource::class;
+    }
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('course_id')
-                    ->required(),
-                Forms\Components\TextInput::make('parent_id'),
+                Forms\Components\Select::make('parent_id')
+                ->relationship('parent','name'),
                 Forms\Components\TextInput::make('name')
                     ->required(),
                 Forms\Components\TextInput::make('description'),
-                Forms\Components\TextInput::make('order')
-                    ->required(),
             ]);
     }
 
@@ -51,13 +54,17 @@ class SectionResource extends Resource
                 Tables\Columns\TextColumn::make('parent_id'),
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('description'),
-                Tables\Columns\TextColumn::make('order'),
+                ChildResourceLink::make(LessonResource::class)
+                    ->toggleable(true,false),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->toggleable(true,true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->toggleable(true,true),
                 Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->toggleable(true,true),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -69,7 +76,7 @@ class SectionResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
                 Tables\Actions\RestoreBulkAction::make(),
-            ]);
+            ])->reorderable('order');
     }
 
     public static function getRelations(): array
@@ -88,7 +95,7 @@ class SectionResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
+    public static function getEloquentQuery(string|int|null $parent = null): Builder
     {
         return parent::getEloquentQuery()
             ->withoutGlobalScopes([

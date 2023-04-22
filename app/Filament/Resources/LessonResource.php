@@ -13,8 +13,9 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use SevendaysDigital\FilamentNestedResources\NestedResource;
 
-class LessonResource extends Resource
+class LessonResource extends NestedResource
 {
     use Translatable;
 
@@ -28,6 +29,10 @@ class LessonResource extends Resource
 
     protected static bool $shouldRegisterNavigation = false;
 
+    public static function getParent(): string
+    {
+        return SectionResource::class;
+    }
     public static function form(Form $form): Form
     {
         return $form
@@ -50,9 +55,14 @@ class LessonResource extends Resource
                 Tables\Columns\TextColumn::make('description'),
                 Tables\Columns\TextColumn::make('duration'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->toggleable(true,true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->toggleable(true,true),
+                Tables\Columns\TextColumn::make('deleted_at')
+                    ->dateTime()
+                    ->toggleable(true,true),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -83,7 +93,7 @@ class LessonResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
+    public static function getEloquentQuery(string|int|null $parent = null): Builder
     {
         return parent::getEloquentQuery()
             ->withoutGlobalScopes([

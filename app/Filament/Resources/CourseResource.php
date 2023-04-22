@@ -13,6 +13,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use SevendaysDigital\FilamentNestedResources\Columns\ChildResourceLink;
 
 class CourseResource extends Resource
 {
@@ -38,8 +39,7 @@ class CourseResource extends Resource
                 ),
                 Forms\Components\Grid::make(1)->schema(
                     [
-                        Forms\Components\Textarea::make('description')
-                            ->required(),
+                        Forms\Components\Textarea::make('description'),
                     ]
                 ),
             ]);
@@ -51,12 +51,17 @@ class CourseResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('description'),
+                ChildResourceLink::make(SectionResource::class)
+                    ->toggleable(true,false),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->toggleable(true,true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->toggleable(true,true),
                 Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->toggleable(true,true),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
