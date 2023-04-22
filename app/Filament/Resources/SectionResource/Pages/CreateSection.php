@@ -3,10 +3,10 @@
 namespace App\Filament\Resources\SectionResource\Pages;
 
 use App\Filament\Resources\SectionResource;
-use App\Traits\HasTranslatableNestedPage;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\CreateRecord\Concerns\Translatable;
+use SevendaysDigital\FilamentNestedResources\ResourcePages\HasTranslatableNestedPage;
 use SevendaysDigital\FilamentNestedResources\ResourcePages\NestedPage;
 
 class CreateSection extends CreateRecord

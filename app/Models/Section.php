@@ -23,7 +23,7 @@ class Section extends Model implements Sortable
     public $translatable = ['name', 'description'];
 
 
-    protected $fillable = ['name', 'description', 'course_id', 'parent_id'];
+    protected $fillable = ['name', 'description', 'course_id', 'parent_id','active'];
 
     protected $dates = ['deleted_at'];
 

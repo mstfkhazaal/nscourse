@@ -8,7 +8,6 @@ use App\Models\Section;
 use Filament\Forms;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Form;
-use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
@@ -39,10 +38,13 @@ class SectionResource extends NestedResource
         return $form
             ->schema([
                 Forms\Components\Select::make('parent_id')
-                ->relationship('parent','name'),
+                    ->columnSpan(2)
+                    ->relationship('parent', 'name'),
                 Forms\Components\TextInput::make('name')
+                    ->columnSpan(2)
                     ->required(),
-                Forms\Components\TextInput::make('description'),
+                Forms\Components\TextInput::make('description')
+                    ->columnSpan(2),
             ]);
     }
 
@@ -50,18 +52,20 @@ class SectionResource extends NestedResource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('course_id'),
-                Tables\Columns\TextColumn::make('parent_id'),
+                Tables\Columns\TextColumn::make('course.name')
+                    ->toggleable(true, true),
                 Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('parent.name')
+                    ->toggleable(true),
                 Tables\Columns\TextColumn::make('description'),
                 ChildResourceLink::make(LessonResource::class)
-                    ->toggleable(true,false),
+                    ->toggleable(true, false),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
-                    ->toggleable(true,true),
+                    ->toggleable(true, true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
-                    ->toggleable(true,true),
+                    ->toggleable(true, true),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->toggleable(true,true),
@@ -71,12 +75,15 @@ class SectionResource extends NestedResource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
                 Tables\Actions\RestoreBulkAction::make(),
-            ])->reorderable('order');
+            ])
+            ->reorderable('order')
+            ->defaultSort('order');
     }
 
     public static function getRelations(): array
@@ -94,12 +101,18 @@ class SectionResource extends NestedResource
             'edit' => Pages\EditSection::route('/{record}/edit'),
         ];
     }
-
     public static function getEloquentQuery(string|int|null $parent = null): Builder
     {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
+        $query = static::getModel()::query(); // 👈 Change here
+        $parentModel = static::getParent()::getModel();
+        $key = (new $parentModel)->getKeyName();
+        $query->whereHas(
+            'course', // 👈 Change here
+            fn(Builder $builder) => $builder->where($key, '=', $parent ?? static::getParentId())
+        );
+
+        return $query->withoutGlobalScopes([
+            SoftDeletingScope::class,
+        ]);
     }
 }

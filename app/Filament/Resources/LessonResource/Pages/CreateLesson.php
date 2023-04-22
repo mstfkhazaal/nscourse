@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\LessonResource\Pages;
 
 use App\Filament\Resources\LessonResource;
-use App\Traits\HasTranslatableNestedPage;
+use SevendaysDigital\FilamentNestedResources\ResourcePages\HasTranslatableNestedPage;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\CreateRecord\Concerns\Translatable;

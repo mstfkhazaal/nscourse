@@ -17,6 +17,7 @@ return new class extends Migration
             $table->json('description')->nullable();
             $table->unsignedInteger('duration')->nullable();
             $table->foreignId('section_id')->constrained()->onDelete('cascade');
+            $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

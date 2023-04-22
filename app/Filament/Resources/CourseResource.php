@@ -31,17 +31,11 @@ class CourseResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Grid::make(1)->schema(
-                    [
-                        Forms\Components\TextInput::make('name')
-                            ->required(),
-                    ]
-                ),
-                Forms\Components\Grid::make(1)->schema(
-                    [
-                        Forms\Components\Textarea::make('description'),
-                    ]
-                ),
+                Forms\Components\TextInput::make('name')
+                    ->columnSpan(2)
+                    ->required(),
+                Forms\Components\Textarea::make('description')
+                    ->columnSpan(2),
             ]);
     }
 
@@ -50,7 +44,8 @@ class CourseResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('description'),
+                Tables\Columns\TextColumn::make('description')
+                    ->toggleable(true,true),
                 ChildResourceLink::make(SectionResource::class)
                     ->toggleable(true,false),
                 Tables\Columns\TextColumn::make('created_at')
@@ -68,6 +63,7 @@ class CourseResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

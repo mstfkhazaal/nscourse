@@ -8,7 +8,6 @@ use App\Models\Lesson;
 use Filament\Forms;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Form;
-use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
@@ -37,12 +36,12 @@ class LessonResource extends NestedResource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('section_id')
-                    ->required(),
                 Forms\Components\TextInput::make('title')
+                    ->columnSpan(2)
                     ->required(),
-                Forms\Components\TextInput::make('description'),
-                Forms\Components\TextInput::make('duration'),
+                Forms\Components\Textarea::make('description')
+                    ->columnSpan(2),
+                Forms\Components\TimePicker::make('duration'),
             ]);
     }
 
@@ -50,7 +49,8 @@ class LessonResource extends NestedResource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('section_id'),
+                Tables\Columns\TextColumn::make('section.name')
+                ->toggleable(),
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('description'),
                 Tables\Columns\TextColumn::make('duration'),
@@ -69,6 +69,7 @@ class LessonResource extends NestedResource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -95,9 +96,16 @@ class LessonResource extends NestedResource
 
     public static function getEloquentQuery(string|int|null $parent = null): Builder
     {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
+        $query = static::getModel()::query(); // 👈 Change here
+        $parentModel = static::getParent()::getModel();
+        $key = (new $parentModel)->getKeyName();
+        $query->whereHas(
+            'section',
+            fn(Builder $builder) => $builder->where($key, '=', $parent ?? static::getParentId())
+        );
+
+        return $query->withoutGlobalScopes([
+            SoftDeletingScope::class,
+        ]);
     }
 }

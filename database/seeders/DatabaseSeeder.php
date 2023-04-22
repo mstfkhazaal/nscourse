@@ -17,12 +17,13 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        User::create([
-            'name' => 'admin',
-            'email' => 'admin@example.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('123456789'),
-            'remember_token' => Str::random(10),
+        $this->call([
+            UserSeeder::class,
+            CourseSeeder::class,
+            SectionSeeder::class,
+            LessonSeeder::class,
+            EnrollmentSeeder::class,
+            CompletedLessonSeeder::class
         ]);
     }
 }

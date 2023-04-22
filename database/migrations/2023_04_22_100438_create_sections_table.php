@@ -18,6 +18,8 @@ return new class extends Migration
             $table->json('description')->nullable();
             $table->foreignId('parent_id')->nullable()->constrained('sections');
             $table->integer('order');
+            $table->boolean('active')->default(true);
+
             $table->timestamps();
             $table->softDeletes();
         });

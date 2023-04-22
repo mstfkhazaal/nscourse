@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd51372c0281082648c5690be15781be",
+    "content-hash": "6345ab9d575b09389de9b1f3701bad9e",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -3956,14 +3956,8 @@
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Sevendays-Digital/filament-nested-resources.git",
-                "reference": "6c90342dfb818629f2463666092ae7f2d84bc17f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Sevendays-Digital/filament-nested-resources/zipball/6c90342dfb818629f2463666092ae7f2d84bc17f",
-                "reference": "6c90342dfb818629f2463666092ae7f2d84bc17f",
-                "shasum": ""
+                "url": "https://github.com/almooradi-dev/filament-nested-resources",
+                "reference": "00ea2476ef2ef63e710fe530b7805ffe45e06cbd"
             },
             "require": {
                 "filament/filament": "^2.0",
@@ -4004,7 +3998,26 @@
                     "SevendaysDigital\\FilamentNestedResources\\Database\\Factories\\": "database/factories"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "SevendaysDigital\\FilamentNestedResources\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "pint": [
+                    "vendor/bin/pint"
+                ],
+                "test:pest": [
+                    "vendor/bin/pest --parallel"
+                ],
+                "test:phpstan": [
+                    "vendor/bin/phpstan analyse"
+                ],
+                "test": [
+                    "@test:pest",
+                    "@test:phpstan"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -4022,17 +4035,7 @@
                 "filament-nested-resources",
                 "laravel"
             ],
-            "support": {
-                "issues": "https://github.com/Sevendays-Digital/filament-nested-resources/issues",
-                "source": "https://github.com/Sevendays-Digital/filament-nested-resources/tree/main"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/Sevendays-Digital",
-                    "type": "github"
-                }
-            ],
-            "time": "2023-04-19T11:04:26+00:00"
+            "time": "2023-04-16T11:57:37+00:00"
         },
         {
             "name": "spatie/eloquent-sortable",
