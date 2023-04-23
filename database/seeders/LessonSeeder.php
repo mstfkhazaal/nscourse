@@ -36,7 +36,7 @@ class LessonSeeder extends Seeder
             [
                 'id' => 3,
                 'title' => json_encode([
-                    'en' => 'Introduction to HTML (HTML Basics) Part ٣',
+                    'en' => 'Introduction to HTML (HTML Basics) Part 3',
                     'ar' => 'مقدمة إلى HTML (أساسيات HTML) الجزء الثالث']),
                 'section_id'=> 1,
                 'duration'=> null,

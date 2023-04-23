@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Filament\Resources\SectionResource\Pages;
+namespace App\Filament\Resources\Main\SectionResource\Pages;
 
-use App\Filament\Resources\SectionResource;
+use App\Filament\Resources\Main\SectionResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
-use SevendaysDigital\FilamentNestedResources\ResourcePages\NestedPage;
-
+use Mstfkhazaal\FilamentNestedresources\ResourcePages\NestedPage;
 class EditSection extends EditRecord
 {
     use EditRecord\Concerns\Translatable;

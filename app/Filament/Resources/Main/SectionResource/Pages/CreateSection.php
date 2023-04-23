@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Filament\Resources\SectionResource\Pages;
+namespace App\Filament\Resources\Main\SectionResource\Pages;
 
-use App\Filament\Resources\SectionResource;
+use App\Filament\Resources\Main\SectionResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\CreateRecord\Concerns\Translatable;
-use SevendaysDigital\FilamentNestedResources\ResourcePages\HasTranslatableNestedPage;
-use SevendaysDigital\FilamentNestedResources\ResourcePages\NestedPage;
+use Mstfkhazaal\FilamentNestedresources\ResourcePages\HasTranslatableNestedPage;
+use Mstfkhazaal\FilamentNestedresources\ResourcePages\NestedPage;
 
 class CreateSection extends CreateRecord
 {

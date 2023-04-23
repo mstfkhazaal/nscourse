@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Filament\Resources\LessonResource\Pages;
+namespace App\Filament\Resources\Main\LessonResource\Pages;
 
-use App\Filament\Resources\LessonResource;
-use SevendaysDigital\FilamentNestedResources\ResourcePages\HasTranslatableNestedPage;
+use App\Filament\Resources\Main\LessonResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\CreateRecord\Concerns\Translatable;
-use SevendaysDigital\FilamentNestedResources\ResourcePages\NestedPage;
-
+use Mstfkhazaal\FilamentNestedresources\ResourcePages\HasTranslatableNestedPage;
+use Mstfkhazaal\FilamentNestedresources\ResourcePages\NestedPage;
 class CreateLesson extends CreateRecord
 {
 

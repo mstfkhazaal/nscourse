@@ -4,14 +4,9 @@
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/mstfkhazaal/filament-nested-resources"
-        }
-    ],
     "require": {
         "php": "^8.1",
+        "archilex/filament-toggle-icon-column": "^1.0",
         "bezhansalleh/filament-language-switch": "^1.0",
         "filament/filament": "^2.0",
         "filament/spatie-laravel-translatable-plugin": "^2.0",
@@ -19,7 +14,7 @@
         "laravel/framework": "^10.8",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
-        "sevendays-digital/filament-nested-resources": "dev-main",
+        "mstfkhazaal/filament-nestedresources": "dev-main",
         "spatie/eloquent-sortable": "^4.0"
     },
     "require-dev": {

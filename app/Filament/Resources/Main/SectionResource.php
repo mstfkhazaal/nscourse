@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
 
+namespace App\Filament\Resources\Main;
+
+use App\Filament\Resources\Main;
 use App\Filament\Resources\SectionResource\Pages;
 use App\Filament\Resources\SectionResource\RelationManagers;
 use App\Models\Section;
@@ -11,9 +13,11 @@ use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use SevendaysDigital\FilamentNestedResources\Columns\ChildResourceLink;
-use SevendaysDigital\FilamentNestedResources\NestedResource;
+use Mstfkhazaal\FilamentNestedresources\Columns\ChildResourceLink;
+use Mstfkhazaal\FilamentNestedresources\NestedResource;
+use Filament\Tables\Actions\Action;
 
 class SectionResource extends NestedResource
 {
@@ -33,17 +37,32 @@ class SectionResource extends NestedResource
     {
         return CourseResource::class;
     }
+    public static function getLabel(): ?string
+    {
+        return __('section.title');
+    }
+
+    public static function getPluralLabel(): ?string
+    {
+        return __('section.plural');
+    }
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('parent_id')
+                    ->label('section.parent')
+                    ->translateLabel()
                     ->columnSpan(2)
                     ->relationship('parent', 'name'),
                 Forms\Components\TextInput::make('name')
                     ->columnSpan(2)
+                    ->label('section.name')
+                    ->translateLabel()
                     ->required(),
-                Forms\Components\TextInput::make('description')
+                Forms\Components\Textarea::make('description')
+                    ->label('section.description')
+                    ->translateLabel()
                     ->columnSpan(2),
             ]);
     }
@@ -53,27 +72,54 @@ class SectionResource extends NestedResource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('course.name')
+                    ->label('section.course')
+                    ->translateLabel()
                     ->toggleable(true, true),
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('section.name')
+                    ->translateLabel(),
                 Tables\Columns\TextColumn::make('parent.name')
+                    ->label('section.parent')
+                    ->translateLabel()
                     ->toggleable(true),
-                Tables\Columns\TextColumn::make('description'),
+                Tables\Columns\TextColumn::make('description')
+                    ->label('section.description')
+                    ->translateLabel(),
                 ChildResourceLink::make(LessonResource::class)
                     ->toggleable(true, false),
+                Tables\Columns\IconColumn::make('active')
+                    ->action(Action::make('active')
+                        ->label(__('table.active_confirmation'))
+                        ->requiresConfirmation()
+                        ->action(function ($record) {
+                            $record->active = !$record->active;
+                            $record->save();
+                        }))
+                    ->boolean()
+                    ->toggleable()
+                    ->label('table.active')
+                    ->translateLabel(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->toggleable(true, true),
+                    ->label('table.created_at')
+                    ->toggleable(true, true)
+                    ->translateLabel()
+                    ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->toggleable(true, true),
+                    ->label('table.updated_at')
+                    ->translateLabel()
+                    ->toggleable(true, true)
+                    ->dateTime(),
                 Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->toggleable(true,true),
+                    ->label('table.deleted_at')
+                    ->translateLabel()
+                    ->toggleable(true, true)
+                    ->dateTime(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -92,13 +138,17 @@ class SectionResource extends NestedResource
             //
         ];
     }
-
+    public static function getParentAccessor(): string
+    {
+        return 'course';
+    }
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSections::route('/'),
-            'create' => Pages\CreateSection::route('/create'),
-            'edit' => Pages\EditSection::route('/{record}/edit'),
+            'index' => Main\SectionResource\Pages\ListSections::route('/'),
+            'view' => Main\SectionResource\Pages\ViewSection::route('/{record}'),
+            'create' => Main\SectionResource\Pages\CreateSection::route('/create'),
+            'edit' => Main\SectionResource\Pages\EditSection::route('/{record}/edit'),
         ];
     }
     public static function getEloquentQuery(string|int|null $parent = null): Builder

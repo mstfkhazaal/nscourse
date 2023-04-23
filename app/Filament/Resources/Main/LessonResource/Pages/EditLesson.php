@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Filament\Resources\LessonResource\Pages;
+namespace App\Filament\Resources\Main\LessonResource\Pages;
 
-use App\Filament\Resources\LessonResource;
+use App\Filament\Resources\Main\LessonResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
-use SevendaysDigital\FilamentNestedResources\ResourcePages\NestedPage;
-
+use Mstfkhazaal\FilamentNestedresources\ResourcePages\NestedPage;
 class EditLesson extends EditRecord
 {
     use EditRecord\Concerns\Translatable;

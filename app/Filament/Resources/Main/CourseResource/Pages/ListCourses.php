@@ -1,19 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\LessonResource\Pages;
+namespace App\Filament\Resources\Main\CourseResource\Pages;
 
-use App\Filament\Resources\LessonResource;
+use App\Filament\Resources\Main\CourseResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
-use SevendaysDigital\FilamentNestedResources\ResourcePages\NestedPage;
 
-class ListLessons extends ListRecords
+class ListCourses extends ListRecords
 {
     use ListRecords\Concerns\Translatable;
 
-    use NestedPage;
-
-    protected static string $resource = LessonResource::class;
+    protected static string $resource = CourseResource::class;
 
     protected function getActions(): array
     {
