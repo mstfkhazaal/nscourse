@@ -130,7 +130,7 @@ class CourseResource extends BaseNestedResource
         return [
             'index' => Pages\ListCourses::route('/'),
             'create' => Pages\CreateCourse::route('/create'),
-            'view' => Pages\ViewCourse::route('/{record}'),
+            'view' => Pages\ViewCourse::route('/{record}/view'),
             'edit' => Pages\EditCourse::route('/{record}/edit'),
         ];
     }

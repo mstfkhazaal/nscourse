@@ -23,6 +23,7 @@ class SectionResource extends NestedResource
 {
     use Translatable;
 
+
     public static function getTranslatableLocales(): array
     {
         return ['en', 'ar'];
@@ -83,6 +84,11 @@ class SectionResource extends NestedResource
                     ->translateLabel()
                     ->toggleable(true),
                 Tables\Columns\TextColumn::make('description')
+                    ->getStateUsing(function ($livewire, $record) {
+                        $in =$record->getTranslation('description',
+                            $livewire->getActiveTableLocale());
+                        return mb_strimwidth($in, 0, 50, "...");
+                    })
                     ->label('section.description')
                     ->translateLabel(),
                 ChildResourceLink::make(LessonResource::class)
@@ -99,6 +105,14 @@ class SectionResource extends NestedResource
                     ->toggleable()
                     ->label('table.active')
                     ->translateLabel(),
+                /*Tables\Columns\IconColumn::make('active')
+                    ->action(function(){
+
+                    })
+                    ->boolean()
+                    ->toggleable()
+                    ->label('table.active')
+                    ->translateLabel(),*/
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('table.created_at')
                     ->toggleable(true, true)
@@ -146,7 +160,7 @@ class SectionResource extends NestedResource
     {
         return [
             'index' => Main\SectionResource\Pages\ListSections::route('/'),
-            'view' => Main\SectionResource\Pages\ViewSection::route('/{record}'),
+            'view' => Main\SectionResource\Pages\ViewSection::route('/view/{record}'),
             'create' => Main\SectionResource\Pages\CreateSection::route('/create'),
             'edit' => Main\SectionResource\Pages\EditSection::route('/{record}/edit'),
         ];

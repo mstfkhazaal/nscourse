@@ -8,7 +8,9 @@ use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Pages\ListRecords\Concerns\Translatable;
 use Mstfkhazaal\FilamentNestedresources\ResourcePages\ListNestedPage;
 use Mstfkhazaal\FilamentNestedresources\ResourcePages\NestedPage;
-class ListLessons extends ListRecords
+use Mstfkhazaal\FilamentNestedresources\Resources\Pages\ListNestedRecords;
+
+class ListLessons extends ListNestedRecords
 {
     use ListNestedPage, Translatable {
         ListNestedPage::configureDeleteAction insteadof Translatable;

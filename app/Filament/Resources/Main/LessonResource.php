@@ -75,6 +75,11 @@ class LessonResource extends NestedResource
                     ->label('lesson.title')
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('description')
+                    ->getStateUsing(function ($livewire, $record) {
+                        $in =$record->getTranslation('description',
+                            $livewire->getActiveTableLocale());
+                        return mb_strimwidth($in, 0, 50, "...");
+                    })
                     ->label('lesson.description')
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('duration')
@@ -134,9 +139,10 @@ class LessonResource extends NestedResource
     {
         return [
             'index' => Main\LessonResource\Pages\ListLessons::route('/'),
-            'view' => Main\LessonResource\Pages\ViewLesson::route('/{record}'),
             'create' => Main\LessonResource\Pages\CreateLesson::route('/create'),
             'edit' => Main\LessonResource\Pages\EditLesson::route('/{record}/edit'),
+            'view' => Main\LessonResource\Pages\ViewLesson::route('/{record}/view'),
+
         ];
     }
 
