@@ -8,15 +8,16 @@ use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\CreateRecord\Concerns\Translatable;
 use Mstfkhazaal\FilamentNestedresources\ResourcePages\HasTranslatableNestedPage;
 use Mstfkhazaal\FilamentNestedresources\ResourcePages\NestedPage;
+
 class CreateLesson extends CreateRecord
 {
-
     use HasTranslatableNestedPage, Translatable {
         HasTranslatableNestedPage::handleRecordCreation insteadof Translatable;
     }
     use NestedPage {
         HasTranslatableNestedPage::handleRecordCreation insteadof NestedPage;
     }
+
 
     protected static string $resource = LessonResource::class;
     protected function getActions(): array

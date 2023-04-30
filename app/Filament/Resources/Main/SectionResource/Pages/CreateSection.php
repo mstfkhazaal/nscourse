@@ -12,11 +12,12 @@ use Mstfkhazaal\FilamentNestedresources\ResourcePages\NestedPage;
 class CreateSection extends CreateRecord
 {
     use HasTranslatableNestedPage, Translatable {
-    HasTranslatableNestedPage::handleRecordCreation insteadof Translatable;
-}
+        HasTranslatableNestedPage::handleRecordCreation insteadof Translatable;
+    }
     use NestedPage {
         HasTranslatableNestedPage::handleRecordCreation insteadof NestedPage;
     }
+
     protected static string $resource = SectionResource::class;
     protected function getActions(): array
     {

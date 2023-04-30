@@ -4,7 +4,6 @@ namespace App\Filament\Resources\Main\LessonResource\Pages;
 
 use App\Filament\Resources\Main\LessonResource;
 use Filament\Pages\Actions;
-use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Pages\ListRecords\Concerns\Translatable;
 use Mstfkhazaal\FilamentNestedresources\ResourcePages\ListNestedPage;
 use Mstfkhazaal\FilamentNestedresources\ResourcePages\NestedPage;

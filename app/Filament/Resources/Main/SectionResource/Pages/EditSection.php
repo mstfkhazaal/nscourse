@@ -6,10 +6,11 @@ use App\Filament\Resources\Main\SectionResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Mstfkhazaal\FilamentNestedresources\ResourcePages\NestedPage;
-class EditSection extends EditRecord
+use Mstfkhazaal\FilamentNestedresources\Resources\Pages\EditNestedRecords;
+
+class EditSection extends EditNestedRecords
 {
-    use EditRecord\Concerns\Translatable;
-    use NestedPage;
+    use EditRecord\Concerns\Translatable, NestedPage;
 
     protected static string $resource = SectionResource::class;
 

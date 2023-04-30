@@ -7,6 +7,7 @@ use App\Filament\Resources\LessonResource\RelationManagers;
 use App\Filament\Resources\Main;
 use App\Models\Lesson;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
@@ -14,6 +15,7 @@ use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Livewire\TemporaryUploadedFile;
 use Mstfkhazaal\FilamentNestedresources\NestedResource;
 
 class LessonResource extends NestedResource
@@ -29,7 +31,7 @@ class LessonResource extends NestedResource
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     protected static bool $shouldRegisterNavigation = false;
-
+    protected static ?int $navigationSort =2;
 
     public static function getLabel(): ?string
     {
@@ -43,6 +45,10 @@ class LessonResource extends NestedResource
     public static function getParent(): string
     {
         return SectionResource::class;
+    }
+    protected static function getNavigationGroup(): ?string
+    {
+        return __('course.title');
     }
     public static function form(Form $form): Form
     {
@@ -60,6 +66,15 @@ class LessonResource extends NestedResource
                 Forms\Components\TimePicker::make('duration')
                     ->label('lesson.duration')
                     ->translateLabel(),
+                SpatieMediaLibraryFileUpload::make('video')
+                    ->collection('lessons')
+                    ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file, $record, callable $set): string {
+                        return $record->getTranslation('title', 'en') . '.' . $file->extension();
+                    })
+                    ->reactive()
+                    ->acceptedFileTypes(['video/*'])
+                    ->hint('The Video crop to 16:9')
+                    ->columnSpan(2),
             ]);
     }
 

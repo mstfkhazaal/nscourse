@@ -34,6 +34,7 @@ class SectionResource extends NestedResource
 
     protected static bool $shouldRegisterNavigation = false;
 
+    protected static ?int $navigationSort =1;
     public static function getParent(): string
     {
         return CourseResource::class;
@@ -46,6 +47,10 @@ class SectionResource extends NestedResource
     public static function getPluralLabel(): ?string
     {
         return __('section.plural');
+    }
+    protected static function getNavigationGroup(): ?string
+    {
+        return __('course.title');
     }
     public static function form(Form $form): Form
     {
@@ -105,14 +110,6 @@ class SectionResource extends NestedResource
                     ->toggleable()
                     ->label('table.active')
                     ->translateLabel(),
-                /*Tables\Columns\IconColumn::make('active')
-                    ->action(function(){
-
-                    })
-                    ->boolean()
-                    ->toggleable()
-                    ->label('table.active')
-                    ->translateLabel(),*/
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('table.created_at')
                     ->toggleable(true, true)

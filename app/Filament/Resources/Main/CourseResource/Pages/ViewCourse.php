@@ -10,7 +10,6 @@ class ViewCourse extends ViewRecord
 {
     use ViewRecord\Concerns\Translatable;
 
-
     protected static string $resource = CourseResource::class;
 
     protected function getActions(): array

@@ -37,6 +37,8 @@ class CourseResource extends BaseNestedResource
         return __('course.title');
     }
 
+
+
     public static function getPluralLabel(): ?string
     {
         return __('course.plural');

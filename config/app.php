@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\FilamentProvider;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
@@ -160,6 +161,7 @@ return [
          * Package Service Providers...
          */
         Spatie\EloquentSortable\EloquentSortableServiceProvider::class,
+        FilamentProvider::class,
 
         /*
          * Application Service Providers...

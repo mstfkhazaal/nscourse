@@ -6,7 +6,9 @@ use App\Filament\Resources\Main\LessonResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Mstfkhazaal\FilamentNestedresources\ResourcePages\NestedPage;
-class EditLesson extends EditRecord
+use Mstfkhazaal\FilamentNestedresources\Resources\Pages\EditNestedRecords;
+
+class EditLesson extends EditNestedRecords
 {
     use EditRecord\Concerns\Translatable;
 
