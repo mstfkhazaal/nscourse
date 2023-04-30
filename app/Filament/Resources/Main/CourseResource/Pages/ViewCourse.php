@@ -16,7 +16,7 @@ class ViewCourse extends ViewRecord
     {
         return [
             Actions\LocaleSwitcher::make(),
-            Actions\EditAction::make(),
+            //Actions\EditAction::make(),
         ];
     }
 }

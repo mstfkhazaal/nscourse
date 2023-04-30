@@ -18,8 +18,8 @@ class ViewLesson extends ViewRecord
     protected function getActions(): array
     {
         return [
-            Actions\LocaleSwitcher::make(),
-            Actions\EditAction::make(),
+            //Actions\LocaleSwitcher::make(),
+            //Actions\EditAction::make(),
         ];
     }
 }

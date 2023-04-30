@@ -23,7 +23,10 @@ class DatabaseSeeder extends Seeder
             SectionSeeder::class,
             LessonSeeder::class,
             EnrollmentSeeder::class,
-            CompletedLessonSeeder::class
+            CompletedLessonSeeder::class,
+            ClasssSeeder::class,
+            SectionClassSeeder::class,
+            StudentSeeder::class
         ]);
     }
 }

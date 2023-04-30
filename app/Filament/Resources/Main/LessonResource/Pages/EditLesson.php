@@ -19,10 +19,10 @@ class EditLesson extends EditNestedRecords
     protected function getActions(): array
     {
         return [
-            Actions\LocaleSwitcher::make(),
-            Actions\DeleteAction::make(),
-            Actions\ForceDeleteAction::make(),
-            Actions\RestoreAction::make(),
+            //Actions\LocaleSwitcher::make(),
+            //Actions\DeleteAction::make(),
+            //Actions\ForceDeleteAction::make(),
+           // Actions\RestoreAction::make(),
         ];
     }
 }

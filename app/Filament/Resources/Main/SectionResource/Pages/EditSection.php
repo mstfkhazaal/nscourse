@@ -18,9 +18,9 @@ class EditSection extends EditNestedRecords
     {
         return [
             Actions\LocaleSwitcher::make(),
-            Actions\DeleteAction::make(),
-            Actions\ForceDeleteAction::make(),
-            Actions\RestoreAction::make(),
+            //Actions\DeleteAction::make(),
+            // Actions\ForceDeleteAction::make(),
+            //Actions\RestoreAction::make(),
         ];
     }
 }

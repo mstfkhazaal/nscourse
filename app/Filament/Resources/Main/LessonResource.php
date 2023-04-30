@@ -48,7 +48,7 @@ class LessonResource extends NestedResource
     }
     protected static function getNavigationGroup(): ?string
     {
-        return __('course.title');
+        return __('table.main');
     }
     public static function form(Form $form): Form
     {
@@ -132,14 +132,14 @@ class LessonResource extends NestedResource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                //Tables\Actions\ViewAction::make(),
+                //Tables\Actions\EditAction::make(),
+               // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
+                //Tables\Actions\DeleteBulkAction::make(),
+                //Tables\Actions\ForceDeleteBulkAction::make(),
+               // Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
 
@@ -156,7 +156,7 @@ class LessonResource extends NestedResource
             'index' => Main\LessonResource\Pages\ListLessons::route('/'),
             'create' => Main\LessonResource\Pages\CreateLesson::route('/create'),
             'edit' => Main\LessonResource\Pages\EditLesson::route('/{record}/edit'),
-            'view' => Main\LessonResource\Pages\ViewLesson::route('/{record}/view'),
+            //'view' => Main\LessonResource\Pages\ViewLesson::route('/{record}/view'),
 
         ];
     }

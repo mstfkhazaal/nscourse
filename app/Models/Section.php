@@ -5,16 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
-class Section extends Model implements Sortable
+class Section extends Model implements Sortable , HasMedia
 {
     use HasFactory;
     use SoftDeletes;
     use HasTranslations;
     use SortableTrait;
-
+    use InteractsWithMedia;
     public $sortable = [
         'order_column_name' => 'order',
         'sort_when_creating' => true,

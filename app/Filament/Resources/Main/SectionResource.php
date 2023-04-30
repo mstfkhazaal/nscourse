@@ -8,6 +8,7 @@ use App\Filament\Resources\SectionResource\Pages;
 use App\Filament\Resources\SectionResource\RelationManagers;
 use App\Models\Section;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
@@ -15,6 +16,7 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Livewire\TemporaryUploadedFile;
 use Mstfkhazaal\FilamentNestedresources\Columns\ChildResourceLink;
 use Mstfkhazaal\FilamentNestedresources\NestedResource;
 use Filament\Tables\Actions\Action;
@@ -50,7 +52,7 @@ class SectionResource extends NestedResource
     }
     protected static function getNavigationGroup(): ?string
     {
-        return __('course.title');
+        return __('table.main');
     }
     public static function form(Form $form): Form
     {
@@ -69,6 +71,15 @@ class SectionResource extends NestedResource
                 Forms\Components\Textarea::make('description')
                     ->label('section.description')
                     ->translateLabel()
+                    ->columnSpan(2),
+                SpatieMediaLibraryFileUpload::make('trailer')
+                    ->collection('lessons')
+                    ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file, $record, callable $set): string {
+                        return $record->getTranslation('title', 'en') . '.' . $file->extension();
+                    })
+                    ->reactive()
+                    ->acceptedFileTypes(['video/*'])
+                    ->hint('The Video crop to 16:9')
                     ->columnSpan(2),
             ]);
     }
@@ -132,11 +143,11 @@ class SectionResource extends NestedResource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                //Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
+                //Tables\Actions\ForceDeleteBulkAction::make(),
                 Tables\Actions\RestoreBulkAction::make(),
             ])
             ->reorderable('order')

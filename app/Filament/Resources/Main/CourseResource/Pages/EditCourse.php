@@ -15,11 +15,11 @@ class EditCourse extends EditRecord
     protected function getActions(): array
     {
         return [
-            Actions\ViewAction::make(),
+            //Actions\ViewAction::make(),
             Actions\LocaleSwitcher::make(),
-            Actions\DeleteAction::make(),
-            Actions\ForceDeleteAction::make(),
-            Actions\RestoreAction::make(),
+            //Actions\DeleteAction::make(),
+            //Actions\ForceDeleteAction::make(),
+           // Actions\RestoreAction::make(),
         ];
     }
 }

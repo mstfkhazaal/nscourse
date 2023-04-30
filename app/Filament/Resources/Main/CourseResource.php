@@ -37,6 +37,10 @@ class CourseResource extends BaseNestedResource
         return __('course.title');
     }
 
+    protected static function getNavigationGroup(): ?string
+    {
+        return __('table.main');
+    }
 
 
     public static function getPluralLabel(): ?string
@@ -111,12 +115,12 @@ class CourseResource extends BaseNestedResource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                //Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
+                //Tables\Actions\ForceDeleteBulkAction::make(),
+                //Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
 
